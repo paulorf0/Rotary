@@ -14,9 +14,9 @@ import (
 // }
 
 type apiResponse struct {
-	Msg    string `json: "msg"`
-	Error  string `json: "error"`
-	Status int    `json: "status"`
+	Msg    string `json:"msg"`
+	Error  string `json:"error"`
+	Status int    `json:"status"`
 }
 
 func main() {
