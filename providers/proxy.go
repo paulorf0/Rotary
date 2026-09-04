@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-func getProxyUrl(proxyStruct Proxy, urlPattern string) (ProxyUrl, string) {
+func getProxyUrl(proxyStruct Proxy, urlPattern string) (string, string) {
 	if !validateProxyUrlPattern(urlPattern) {
 		return "", ErrProxyPatternNotValid
 	}
@@ -17,5 +17,5 @@ func getProxyUrl(proxyStruct Proxy, urlPattern string) (ProxyUrl, string) {
 		"{ttl}", proxyStruct.Ttl,
 	)
 
-	return ProxyUrl(proxyReplacer.Replace(urlPattern)), ""
+	return proxyReplacer.Replace(urlPattern), ""
 }

@@ -10,15 +10,13 @@ type Client struct {
 }
 
 type Proxy struct {
-	User       string `json:"user"`
-	Pass       string `json:"pass"`
-	Host       string `json:"host"`
-	Port       string `json:"port"`
-	Ttl        string `json:"ttl"`
-	urlPattern string `json:"urlPattern"`
+	User       string `json: "user"`
+	Pass       string `json: "pass"`
+	Host       string `json: "host"`
+	Port       string `json: "port"`
+	Ttl        string `json: "ttl"`
+	UrlPattern string `json: "urlPattern"`
 }
-
-type ProxyUrl string
 
 var proxyUrlPlaceholderPattern = regexp.MustCompile(`\{[^{}]*\}`)
 var allowedProxyUrlPlaceholders = map[string]bool{
