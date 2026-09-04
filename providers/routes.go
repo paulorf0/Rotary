@@ -14,12 +14,15 @@ var AddClientNok = "Erro em persistir no banco"
 var AddClientPersistence func(Client) bool
 
 func AddClient(client Client, urlPattern string) shared.Response {
-	if client.ProxyUrl != nil && !validateClientProxyUrlPattern(client.ProxyUrl) {
-		url, errMsg := getProxyUrl(client.Proxy, client.Proxy.urlPattern)
+	// se for preenchido, validar
+	// se não for preenchido, preencher
+	if client.ProxyUrl == nil || !validateClientProxyUrlPattern(client.ProxyUrl) {
+		url, errMsg := getProxyUrl(client.Proxy, client.Proxy.UrlPattern)
 		if errMsg != "" {
 			_ = url
 			return shared.Response{Status: http.StatusBadRequest, Msg: errMsg}
 		}
+		client.ProxyUrl = &url
 	}
 
 	res := AddClientPersistence != nil && AddClientPersistence(client)
