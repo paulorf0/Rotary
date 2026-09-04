@@ -1,10 +1,10 @@
-package main
+package providers
 
 import (
 	"strings"
 )
 
-func getProxyUrl(proxyStruct Proxy, urlPattern string) (ProxyUrl, error) {
+func getProxyUrl(proxyStruct Proxy, urlPattern string) (ProxyUrl, string) {
 	if !validateProxyUrlPattern(urlPattern) {
 		return "", ErrProxyPatternNotValid
 	}
@@ -17,5 +17,5 @@ func getProxyUrl(proxyStruct Proxy, urlPattern string) (ProxyUrl, error) {
 		"{ttl}", proxyStruct.Ttl,
 	)
 
-	return ProxyUrl(proxyReplacer.Replace(urlPattern)), nil
+	return ProxyUrl(proxyReplacer.Replace(urlPattern)), ""
 }

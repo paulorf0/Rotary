@@ -1,6 +1,8 @@
-package main
+package providers
 
-import "strings"
+import (
+	"strings"
+)
 
 // valida se o formato só usa placeholders conhecidos e não deixa chave órfã (ex: "{user" sem fechar)
 func validateProxyUrlPattern(urlPattern string) bool {
@@ -17,4 +19,12 @@ func validateProxyUrlPattern(urlPattern string) bool {
 
 	stripped := proxyUrlPlaceholderPattern.ReplaceAllString(urlPattern, "")
 	return !strings.ContainsAny(stripped, "{}")
+}
+
+// valida o ProxyUrl vindo do cliente (campo ponteiro, pode não ter sido enviado) — nil conta como inválido
+func validateClientProxyUrlPattern(urlPattern *string) bool {
+	if urlPattern == nil {
+		return false
+	}
+	return validateProxyUrlPattern(*urlPattern)
 }
