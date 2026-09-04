@@ -5,19 +5,13 @@ import (
 	"talos/shared"
 )
 
-type httpStatus int
-
 var AddClientOk = "Cliente Adicionado"
 var AddClientNok = "Erro em persistir no banco"
 
 // AddClientPersistence is assigned by the application layer.
 var AddClientPersistence func(Client) bool
 
-func AddClient(client Client, urlPattern string) shared.Response {
-	if !validateProxyUrlPattern(client.Proxy.UrlPattern) {
-		return shared.Response{Status: http.StatusBadRequest, Msg: "pattern de url de proxy fornecido incorreto"}
-	}
-
+func AddClient(client Client) shared.Response {
 	resolvedUrl, errMsg := getProxyUrl(client.Proxy, client.Proxy.UrlPattern)
 	if errMsg != "" {
 		return shared.Response{Status: http.StatusBadRequest, Msg: errMsg}

@@ -20,11 +20,3 @@ func validateProxyUrlPattern(urlPattern string) bool {
 	stripped := proxyUrlPlaceholderPattern.ReplaceAllString(urlPattern, "")
 	return !strings.ContainsAny(stripped, "{}")
 }
-
-// valida o ProxyUrl vindo do cliente (campo ponteiro, pode não ter sido enviado) — nil conta como inválido
-func validateClientProxyUrlPattern(urlPattern *string) bool {
-	if urlPattern == nil {
-		return false
-	}
-	return validateProxyUrlPattern(*urlPattern)
-}
