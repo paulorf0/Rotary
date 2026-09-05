@@ -5,18 +5,18 @@ import (
 )
 
 // valida se o formato só usa placeholders conhecidos e não deixa chave órfã (ex: "{user" sem fechar)
-func validateProxyUrlPattern(urlPattern string) bool {
-	matches := proxyUrlPlaceholderPattern.FindAllString(urlPattern, -1)
+func validateProxyURLPattern(urlPattern string) bool {
+	matches := proxyURLPlaceholderPattern.FindAllString(urlPattern, -1)
 	if len(matches) == 0 {
 		return false
 	}
 
 	for _, placeholder := range matches {
-		if !allowedProxyUrlPlaceholders[placeholder] {
+		if !allowedProxyURLPlaceholders[placeholder] {
 			return false
 		}
 	}
 
-	stripped := proxyUrlPlaceholderPattern.ReplaceAllString(urlPattern, "")
+	stripped := proxyURLPlaceholderPattern.ReplaceAllString(urlPattern, "")
 	return !strings.ContainsAny(stripped, "{}")
 }

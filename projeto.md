@@ -4,6 +4,6 @@ Construir uma API que vai servir para gerenciar pools de proxys para sistemas qu
 
 # Funcionalidades
 
-* Sistema de pool de ips.
-* Sistema de reciclagem de ips, retroalimentado por quem chamada a API.
-* Sistema de exclusão de ips.
+- Sistema de pool de ips.
+- Sistema de reciclagem de ips, retroalimentado por quem chamada a API.
+- Sistema de exclusão de ips.

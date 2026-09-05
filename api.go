@@ -38,7 +38,7 @@ func main() {
 	svr.ListenAndServe()
 }
 
-func writeJson[T any](w http.ResponseWriter, httpStatus int, value T) {
+func writeJSON[T any](w http.ResponseWriter, httpStatus int, value T) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(httpStatus)
 	_ = json.NewEncoder(w).Encode(value)
@@ -50,10 +50,10 @@ func v1ClientRoute(w http.ResponseWriter, req *http.Request) {
 	}
 
 	if err := json.NewDecoder(req.Body).Decode(&v1ClientPayload); err != nil {
-		writeJson(w, http.StatusBadRequest, map[string]string{"error": "payload incorreto"})
+		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "payload incorreto"})
 		return
 	}
 
 	res := providers.AddClient(v1ClientPayload.Client)
-	writeJson(w, res.Status, res)
+	writeJSON(w, res.Status, res)
 }

@@ -2,21 +2,24 @@ package providers
 
 import (
 	"net/http"
+
 	"talos/shared"
 )
 
-var AddClientOk = "Cliente Adicionado"
-var AddClientNok = "Erro em persistir no banco"
+var (
+	AddClientOk  = "Cliente Adicionado"
+	AddClientNok = "Erro em persistir no banco"
+)
 
 // AddClientPersistence is assigned by the application layer.
 var AddClientPersistence func(Client) bool
 
 func AddClient(client Client) shared.Response {
-	resolvedUrl, errMsg := getProxyUrl(client.Proxy, client.Proxy.UrlPattern)
+	resolvedURL, errMsg := getProxyURL(client.Proxy, client.Proxy.URLPattern)
 	if errMsg != "" {
 		return shared.Response{Status: http.StatusBadRequest, Msg: errMsg}
 	}
-	client.ProxyUrl = &resolvedUrl
+	client.ProxyURL = &resolvedURL
 
 	res := AddClientPersistence != nil && AddClientPersistence(client)
 	if !res {

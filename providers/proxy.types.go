@@ -2,13 +2,15 @@ package providers
 
 import "regexp"
 
+// TODO: Talvez isso seja lógica para ficar no DB. É a representação do cliente no banco de dados.
+// As informações do cliente nunca vão ser puxadas todas para a memória.
 type Client struct {
-	Id    string `json:"id"`
+	ID    string `json:"id"`
 	Name  string `json:"name"`
 	Proxy Proxy  `json:"proxy"`
-	// ProxyUrl é saída: montado a partir de Proxy.UrlPattern e dos campos de Proxy.
+	// ProxyURL é saída: montado a partir de Proxy.UrlPattern e dos campos de Proxy.
 	// O que o cliente enviar nesse campo é descartado.
-	ProxyUrl *string `json:"proxyUrl"`
+	ProxyURL *string `json:"proxyUrl"`
 }
 
 type Proxy struct {
@@ -16,15 +18,17 @@ type Proxy struct {
 	Pass       string `json:"pass"`
 	Host       string `json:"host"`
 	Port       string `json:"port"`
-	Ttl        string `json:"ttl"`
-	UrlPattern string `json:"urlPattern"`
+	TTL        string `json:"ttl"`
+	URLPattern string `json:"urlPattern"`
 }
 
-var proxyUrlPlaceholderPattern = regexp.MustCompile(`\{[^{}]*\}`)
-var allowedProxyUrlPlaceholders = map[string]bool{
-	"{user}": true,
-	"{pass}": true,
-	"{host}": true,
-	"{port}": true,
-	"{ttl}":  true,
-}
+var (
+	proxyURLPlaceholderPattern  = regexp.MustCompile(`\{[^{}]*\}`)
+	allowedProxyURLPlaceholders = map[string]bool{
+		"{user}": true,
+		"{pass}": true,
+		"{host}": true,
+		"{port}": true,
+		"{ttl}":  true,
+	}
+)

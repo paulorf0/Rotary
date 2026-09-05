@@ -4,17 +4,17 @@ import (
 	"strings"
 )
 
-func getProxyUrl(proxyStruct Proxy, urlPattern string) (string, string) {
-	if !validateProxyUrlPattern(urlPattern) {
+func getProxyURL(proxyStruct Proxy, urlPattern string) (string, string) {
+	if !validateProxyURLPattern(urlPattern) {
 		return "", ErrProxyPatternNotValid
 	}
 
-	var proxyReplacer = strings.NewReplacer(
+	proxyReplacer := strings.NewReplacer(
 		"{user}", proxyStruct.User,
 		"{pass}", proxyStruct.Pass,
 		"{host}", proxyStruct.Host,
 		"{port}", proxyStruct.Port,
-		"{ttl}", proxyStruct.Ttl,
+		"{ttl}", proxyStruct.TTL,
 	)
 
 	return proxyReplacer.Replace(urlPattern), ""
