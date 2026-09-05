@@ -46,8 +46,7 @@ func writeJson[T any](w http.ResponseWriter, httpStatus int, value T) {
 
 func v1ClientRoute(w http.ResponseWriter, req *http.Request) {
 	var v1ClientPayload struct {
-		Client     providers.Client `json:"client"`
-		URLPattern string           `json:"urlPattern"`
+		Client providers.Client `json:"client"`
 	}
 
 	if err := json.NewDecoder(req.Body).Decode(&v1ClientPayload); err != nil {
@@ -55,6 +54,6 @@ func v1ClientRoute(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	res := providers.AddClient(v1ClientPayload.Client, v1ClientPayload.URLPattern)
+	res := providers.AddClient(v1ClientPayload.Client)
 	writeJson(w, res.Status, res)
 }
